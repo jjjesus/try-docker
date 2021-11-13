@@ -16,7 +16,9 @@ title: "Getting started with Docker"
 
 ## Official Docker Instructions for Fedora
 
-These instructions are from: https://docs.docker.com/engine/install/fedora/
+These instructions are from: 
+
+[https://docs.docker.com/engine/install/fedora/](https://docs.docker.com/engine/install/fedora/)
 
 ### Install pointers to Docker repositories
 
@@ -66,20 +68,20 @@ docker run hello-world
 Build Docker image from other images using Multi-Stage Build
 
 
-https://docs.docker.com/develop/develop-images/multistage-build/
+[https://docs.docker.com/develop/develop-images/multistage-build/](https://docs.docker.com/develop/develop-images/multistage-build/)
 
 
 Docker overlay filesystem with mount and volume
 
 
-https://docs.docker.com/storage/volumes/
+[https://docs.docker.com/storage/volumes/](https://docs.docker.com/storage/volumes/)
 
-https://docs.docker.com/storage/bind-mounts/
+[https://docs.docker.com/storage/bind-mounts/](https://docs.docker.com/storage/bind-mounts/)
 
 
 
-Beginning Kubernetes
+*Beginning Kubernetes*
 
-https://docs.docker.com/get-started/kube-deploy/
+[https://docs.docker.com/get-started/kube-deploy/](https://docs.docker.com/get-started/kube-deploy/)
 
 
