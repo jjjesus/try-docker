@@ -1,70 +1,63 @@
-## What extension (e.g. md, markdown, mdown) is being used 
-## for markdown files
-MEXT = md
+# Makefile
+# 
+# Converts Markdown to other formats (HTML, PDF, DOCX, RTF, ODT, EPUB) using Pandoc
+# <http://johnmacfarlane.net/pandoc/>
+#
+# Run "make" (or "make all") to convert to all other formats
+#
+# Run "make clean" to delete converted files
 
-## Expands to a list of all markdown files in the working directory
-SRC = $(wildcard *.$(MEXT))
+# Convert all files in this directory that have a .md suffix
+SOURCE_DOCS := $(wildcard *.md)
 
-## Location of Pandoc support files.
-PREFIX = ./.pandoc
+EXPORTED_DOCS=\
+ $(SOURCE_DOCS:.md=.html) \
+ $(SOURCE_DOCS:.md=.pdf) \
+ $(SOURCE_DOCS:.md=.docx) \
+ $(SOURCE_DOCS:.md=.rtf) \
+ $(SOURCE_DOCS:.md=.odt) \
+ $(SOURCE_DOCS:.md=.epub)
 
-## Location of your working bibliography file
-BIB = ./bibs/bib-pandoc.bib
+RM=/bin/rm
 
-## CSL stylesheet (located in the csl folder of the PREFIX directory).
-CSL = apsa
+PANDOC=/usr/bin/pandoc
 
-## x.pdf depends on x.md, x.html depends on x.md, etc
-PDFS=$(SRC:.md=.pdf)
-HTML=$(SRC:.md=.html)
-TEX=$(SRC:.md=.tex)
-DOCX=$(SRC:.md=.docx)
+PANDOC_OPTIONS=--standalone
 
-## Rules -- make all, make pdf, make html. The `clean` rule is below.
-all:	$(PDFS) $(HTML) $(TEX) $(DOCX)
-pdf:	clean $(PDFS)
-html:   clean $(HTML)
-tex:	clean $(TEX)
-docx:   clean $(DOCX)
+PANDOC_HTML_OPTIONS=--to html5
+PANDOC_PDF_OPTIONS=
+PANDOC_DOCX_OPTIONS=
+PANDOC_RTF_OPTIONS=
+PANDOC_ODT_OPTIONS=
+PANDOC_EPUB_OPTIONS=--to epub3
 
-## The commands associated with each rule. The first one is run with 
-## make html. 
-%.html: %.md
-	pandoc -r markdown -w html -o $@ $<
-	#pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block \ 
-	#-w html -S --template=$(PREFIX)/templates/html.template \
-	#--css=$(PREFIX)/marked/kultiad-serif.css --filter pandoc-crossref \	 
-	#--filter pandoc-citeproc --csl=$(PREFIX)/csl/$(CSL).csl \ 
-	#--bibliography=$(BIB) -o $@ $<
 
-## Same goes for the other file types. 
-## Watch out for the TAB before 'pandoc'
-%.tex:  %.md
-	pandoc -r markdown -w latex -o $@ $<
-	#pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block \ 
-	#--listings -w latex -s -S --latex-engine=pdflatex \ 
-	#--template=$(PREFIX)/templates/latex.template \ 
-	#--filter pandoc-crossref --filter pandoc-citeproc \ 
-	#--csl=$(PREFIX)/csl/ajps.csl --filter pandoc-citeproc-preamble \ 
-	#--bibliography=$(BIB) -o $@ $<
+# Pattern-matching Rules
 
-%.pdf:  %.md
-	pandoc -r markdown -w latex -o $@ $<
-	#pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block \ 
-	#--listings -s -S --latex-engine=pdflatex \ 
-	#--template=$(PREFIX)/templates/latex.template \ 
-	#--filter pandoc-crossref --filter pandoc-citeproc \ 
-	#--csl=$(PREFIX)/csl/$(CSL).csl --filter pandoc-citeproc-preamble \ 
-	#--bibliography=$(BIB) -o $@ $<
+%.html : %.md
+	$(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_HTML_OPTIONS) -o $@ $<
 
-%.docx: %.md
-	pandoc -r markdown -o $@ $<
-	#pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block \ 
-	#-s -S --filter pandoc-crossref --csl=$(PREFIX)/csl/$(CSL).csl \ 
-	#--bibliography=$(BIB) -o $@ $<
+%.pdf : %.md
+	$(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_PDF_OPTIONS) -o $@ $<
+	
+%.docx : %.md
+	$(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_DOCX_OPTIONS) -o $@ $<
+
+%.rtf : %.md
+	$(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_RTF_OPTIONS) -o $@ $<
+
+%.odt : %.md
+	$(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_ODT_OPTIONS) -o $@ $<
+
+%.epub : %.md
+	$(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_EPUB_OPTIONS) -o $@ $<
+
+
+# Targets and dependencies
+
+.PHONY: all clean
+
+all : $(EXPORTED_DOCS)
 
 clean:
-	rm -f *.html *.pdf *.tex *.aux *.log *.docx
-
-.PHONY: clean
-
+	- $(RM) $(EXPORTED_DOCS)
