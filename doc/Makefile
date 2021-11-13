@@ -2,6 +2,8 @@
 # 
 # Converts Markdown to other formats (HTML, PDF, DOCX, RTF, ODT, EPUB) using Pandoc
 # <http://johnmacfarlane.net/pandoc/>
+# 
+# See also: https://plain-text.co/pull-it-together.html
 #
 # Run "make" (or "make all") to convert to all other formats
 #
@@ -10,19 +12,23 @@
 # Convert all files in this directory that have a .md suffix
 SOURCE_DOCS := $(wildcard *.md)
 
+#EXPORTED_DOCS=\
+ #$(SOURCE_DOCS:.md=.html) \
+ #$(SOURCE_DOCS:.md=.pdf) \
+ #$(SOURCE_DOCS:.md=.docx) \
+ #$(SOURCE_DOCS:.md=.rtf) \
+ #$(SOURCE_DOCS:.md=.odt) \
+ #$(SOURCE_DOCS:.md=.epub)
+
 EXPORTED_DOCS=\
  $(SOURCE_DOCS:.md=.html) \
- $(SOURCE_DOCS:.md=.pdf) \
- $(SOURCE_DOCS:.md=.docx) \
- $(SOURCE_DOCS:.md=.rtf) \
- $(SOURCE_DOCS:.md=.odt) \
- $(SOURCE_DOCS:.md=.epub)
+ $(SOURCE_DOCS:.md=.pdf)
 
 RM=/bin/rm
 
 PANDOC=/usr/bin/pandoc
 
-PANDOC_OPTIONS=--standalone
+PANDOC_OPTIONS=
 
 PANDOC_HTML_OPTIONS=--to html5
 PANDOC_PDF_OPTIONS=
@@ -35,7 +41,7 @@ PANDOC_EPUB_OPTIONS=--to epub3
 # Pattern-matching Rules
 
 %.html : %.md
-	$(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_HTML_OPTIONS) -o $@ $<
+	$(PANDOC) --standalone $(PANDOC_OPTIONS) $(PANDOC_HTML_OPTIONS) -o $@ $<
 
 %.pdf : %.md
 	$(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_PDF_OPTIONS) -o $@ $<
