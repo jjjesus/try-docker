@@ -1,5 +1,10 @@
 # Explore a docker image
 
+This README is based on material here:
+
+[https://stackoverflow.com/a/25605493/1761845](https://stackoverflow.com/a/25605493/1761845)
+
+
 A docker image is actually only a regular tarball that
  contains only a few files.
 
