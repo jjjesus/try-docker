@@ -21,11 +21,22 @@ The executable is *app/build/helloworld*
 ## Run executable
 
 We will run a bash shell in a docker container that has this 
-directory mounted in it.  From the bash shell, we can invoke
-the executable built above using the command:
+directory mounted in it.  To run bash in a docker container,
+use the provided dockerShell.sh script:
 
 ```bash
-# /src/ubu/app/build/helloworld
+[jjesus@fedora ubu]$ ./dockerShell.sh 
+
+```
+
+From the bash shell, we can invoke the executable built
+above using the command:
+
+```bash
+root@1fbbc0bdba7a:/# /src/ubu/app/build/helloworld 
+Hello, World!
+root@1fbbc0bdba7a:/# 
+
 ```
 
 
