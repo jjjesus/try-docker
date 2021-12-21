@@ -1,0 +1,71 @@
+@startjson
+{
+    "kind": "EventList",
+    "apiVersion": "v1",
+    "metadata": {
+        "resourceVersion": "2939"
+    },
+    "items": [
+        {
+            "metadata": {
+                "name": "coredns-78fcd69978-sqn6q.16c2c803453484f9",
+                "namespace": "kube-system",
+                "uid": "e910dcec-b97b-4f6c-9edd-76fb2d9cbea5",
+                "resourceVersion": "1984",
+                "creationTimestamp": "2021-12-21T13:25:32Z"
+            },
+            "involvedObject": {
+                "kind": "Pod",
+                "namespace": "kube-system",
+                "name": "coredns-78fcd69978-sqn6q",
+                "uid": "418bf68b-be4f-4e98-98ca-08c59196a6fb",
+                "apiVersion": "v1",
+                "resourceVersion": "435"
+            },
+            "reason": "FailedMount",
+            "message": "MountVolume.SetUp failed for volume \"config-volume\" : failed to sync configmap cache: timed out waiting for the condition",
+            "source": {
+                "component": "kubelet",
+                "host": "minikube"
+            },
+            "firstTimestamp": "2021-12-21T13:25:30Z",
+            "lastTimestamp": "2021-12-21T13:25:32Z",
+            "count": 2,
+            "type": "Warning",
+            "eventTime": null,
+            "reportingComponent": "",
+            "reportingInstance": ""
+        },
+        {
+            "metadata": {
+                "name": "kube-proxy-zpb67.16c2c80345359743",
+                "namespace": "kube-system",
+                "uid": "7c7420ee-6366-4462-91ef-ea9075bd25ac",
+                "resourceVersion": "1983",
+                "creationTimestamp": "2021-12-21T13:25:32Z"
+            },
+            "involvedObject": {
+                "kind": "Pod",
+                "namespace": "kube-system",
+                "name": "kube-proxy-zpb67",
+                "uid": "a8a29ba6-3eed-490d-b9db-595c321cec3b",
+                "apiVersion": "v1",
+                "resourceVersion": "425"
+            },
+            "reason": "FailedMount",
+            "message": "MountVolume.SetUp failed for volume \"kube-proxy\" : failed to sync configmap cache: timed out waiting for the condition",
+            "source": {
+                "component": "kubelet",
+                "host": "minikube"
+            },
+            "firstTimestamp": "2021-12-21T13:25:30Z",
+            "lastTimestamp": "2021-12-21T13:25:32Z",
+            "count": 2,
+            "type": "Warning",
+            "eventTime": null,
+            "reportingComponent": "",
+            "reportingInstance": ""
+        }
+    ]
+}
+@endjson
